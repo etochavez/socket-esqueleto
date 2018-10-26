@@ -1,8 +1,8 @@
 
 import express = require('express');
-import path = require('path');
 import http = require('http');
 import socketIO = require('socket.io');
+import socket = require('../socket/socket');
 
 export default class Server
 {
@@ -16,6 +16,7 @@ export default class Server
         this.server = http.createServer(this.app);
         this.io = socketIO(this.server);
         this.port = puerto;
+        this.socket();
     }
 
     static init(puerto: number) {
@@ -24,11 +25,9 @@ export default class Server
 
     start( callback: Function) {
         this.server.listen( this.port, callback );
-        this.publicFolder();
     }
 
-    private publicFolder(){
-        const publicPath = path.resolve(__dirname, '../public');
-        this.app.use(express.static(publicPath));
+    socket(){
+        const socketObj: socket.default = new socket.default(this.port);
     }
 }
