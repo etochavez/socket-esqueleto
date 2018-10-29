@@ -2,7 +2,7 @@
 import express = require('express');
 import http = require('http');
 import socketIO = require('socket.io');
-import socket = require('../socket/socket');
+import socket from "../socket/socket";
 
 export default class Server
 {
@@ -16,7 +16,7 @@ export default class Server
         this.server = http.createServer(this.app);
         this.io = socketIO(this.server);
         this.port = puerto;
-        this.socket();
+        const sk = socket.cliente(this.io);
     }
 
     static init(puerto: number) {
@@ -25,9 +25,5 @@ export default class Server
 
     start( callback: Function) {
         this.server.listen( this.port, callback );
-    }
-
-    socket(){
-        const socketObj: socket.default = new socket.default(this.port);
     }
 }
