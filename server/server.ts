@@ -10,6 +10,7 @@ export default class Server
     public port: number;
     public server: http.Server;
     public io: socketIO.Server;
+    private static _instance: Server;
 
     constructor(puerto: number) {
         this.app = express();
@@ -17,6 +18,10 @@ export default class Server
         this.io = socketIO(this.server);
         this.port = puerto;
         const sk = socket.cliente(this.io);
+    }
+
+    public static get instance(){
+        return this._instance || (this._instance = new this(3000))
     }
 
     static init(puerto: number) {

@@ -45,10 +45,9 @@ export default class Socket
         })
     }
 
-    static enviarNotificacion(mensaje: string){
-        let io: socketIO.Server;
+    static enviarNotificacion(mensaje: string, io: socketIO.Server){
         io.emit('enviarMensajeServer', {
-            mensaje: 'Bienvenido al sistema'
+            mensaje: mensaje
         });
     }
 }
