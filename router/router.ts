@@ -9,7 +9,9 @@ const router = Router();
 router.get('/', (req: Request, res: Response) => {
     const server = Server.instance;
     //const sk = socket.enviarNotificacion('Mensaje desde el router', server.io);
-    server.io.emit('enviarMensajeServer', { mensaje: "enviarMensajeServer" });
+    //s.emit('enviarMensajeServer', { mensaje: "enviarMensajeServer" });
+    console.log(server.hola);
+    server.io.emit('enviarMensajeServer', { mensaje: "Mensaje desde el router" });
     res.json({
         mensaje: 'Todo está bien!!'
     });
